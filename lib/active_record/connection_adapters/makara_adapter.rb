@@ -122,8 +122,10 @@ module ActiveRecord
       end
 
       def select_all(arel, name = nil, binds = [])
-        makara_block(to_sql(arel, binds)) do |wrapper|
-          wrapper.select_all(arel, name, binds)
+        sql = to_sql(arel, binds)
+
+        makara_block(sql) do |wrapper|
+          wrapper.select(sql, name, binds)
         end
       end
 
